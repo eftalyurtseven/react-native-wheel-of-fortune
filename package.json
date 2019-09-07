@@ -1,0 +1,26 @@
+{
+  "name": "react-native-wheel-of-fortune",
+  "version": "0.0.2",
+  "description": "React Native Wheel Of Fortune Component.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eftalyurtseven/react-native-wheel-of-fortune.git"
+  },
+  "keywords": [
+    "react native wheel of fortune",
+    "rn wheel of fortune",
+    "react wheel of fortune",
+    "react native wheel of luck",
+    "rn wheel of luck"
+  ],
+  "author": "Eftal Yurtseven",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eftalyurtseven/react-native-wheel-of-fortune/issues"
+  },
+  "homepage": "https://github.com/eftalyurtseven/react-native-wheel-of-fortune#readme"
+}
