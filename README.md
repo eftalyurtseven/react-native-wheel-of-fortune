@@ -1,8 +1,9 @@
 # react-native-wheel-of-fortune
 Wheel of fortune component for React Native
 
-![React Native Wheel Of Fortune](/assets/images/RNWheelOfFortune.gif "React Native Wheel Of Fortune")
+![React Native Wheel Of Fortune](https://github.com/eftalyurtseven/react-native-wheel-of-fortune/raw/master/assets/images/RNWheelOfFortune.gif "React Native Wheel Of Fortune")
 
+![React Native Wheel Of Fortune](https://github.com/eftalyurtseven/react-native-wheel-of-fortune/raw/master/assets/images/demo.png "React Native Wheel Of Fortune")
 
 
 ## Installation
