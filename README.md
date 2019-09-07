@@ -53,7 +53,7 @@ playButton | `render()` | example | Render method for tap to play button
     getWinner={(value, index) => this.setState({ winnerValue: value, winnerIndex: index })}
 />        
 ```
-For more information and test go to [/Example](https://github.com/eftalyurtseven/react-native-wheel-of-fortune/example/) folder.
+For more information and test go to [/Example](https://github.com/eftalyurtseven/react-native-wheel-of-fortune/tree/master/Example) folder.
 
 
 
