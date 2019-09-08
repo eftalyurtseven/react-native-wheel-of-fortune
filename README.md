@@ -1,5 +1,6 @@
 # react-native-wheel-of-fortune 
 [![Maintainability](https://api.codeclimate.com/v1/badges/516712bad4032cba5439/maintainability)](https://codeclimate.com/github/eftalyurtseven/react-native-wheel-of-fortune)
+[![Download](https://img.shields.io/npm/dm/react-native-wheel-of-fortune.svg)](https://github.com/eftalyurtseven/react-native-wheel-of-fortune)
 
 
 Wheel of fortune component for React Native
