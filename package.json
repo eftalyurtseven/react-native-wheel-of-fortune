@@ -1,10 +1,10 @@
 {
   "name": "react-native-wheel-of-fortune",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React Native Wheel Of Fortune Component.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
