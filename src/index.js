@@ -14,7 +14,11 @@ import Svg, {
     G,
     Text,
     TSpan,
-    Path
+    Path,
+    Image,
+    Circle,
+    ClipPath,
+    Defs
 } from 'react-native-svg';
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
@@ -53,8 +57,13 @@ class WheelOfFortune extends Component {
         this._wheelPaths = this.makeWheel();
         this._angle = new Animated.Value(0);
         this.angle = 0;
-        
 
+        this.props.onRef(this)
+
+    }
+
+    componentWillUnmount(){
+        this.props.onRef(undefined)
     }
 
     componentDidMount() {
@@ -79,10 +88,10 @@ class WheelOfFortune extends Component {
                 .arc()
                 .padAngle(0.01)
                 .outerRadius(width / 2)
-                .innerRadius(20);
+                .innerRadius( this.props.innerRadius );
             return {
                 path: instance(arc),
-                color: colors[index],
+                color: colors[ index % colors.length ],
                 value: this.Rewards[index],
                 centroid: instance.centroid(arc)
             };
@@ -102,12 +111,14 @@ class WheelOfFortune extends Component {
 
     _onPress = () => {
 
+        const duration = this.props.duration || 10000;
+
         this.setState({
             started: true
         })
         Animated.timing(this._angle, {
-            toValue: 365 - ((this.winner - 1) * (this.oneTurn / this.numberOfSegments)) + (360 * 20),
-            duration: this.props.duration ? this.props.duration : 10000,
+            toValue: 365 - ((this.winner) * (this.oneTurn / this.numberOfSegments)) + (360 * (duration/1000)),
+            duration: duration,
             useNativeDriver: true
         }).start(() => {
             const winnerIndex = this._getwinnerIndex();
@@ -115,10 +126,53 @@ class WheelOfFortune extends Component {
                 finished: true,
                 winner: this._wheelPaths[winnerIndex].value
             });
-            this.props.getWinner(this.state.winner, winnerIndex)
+            this.props.getWinner(this._wheelPaths[winnerIndex].value, winnerIndex)
         });
 
     };
+
+    _imageRender = ( x, y, value, size ) => (
+        <Svg height="60" width="60">
+            <Defs>
+                <ClipPath id="clip">
+                <Circle x={x} y={y} r={size/2} />
+                </ClipPath>
+            </Defs>
+            <Image
+                x={x-size/2}
+                y={y-size/2}
+                width={size}
+                height={size}
+                preserveAspectRatio="xMidYMid slice"
+                opacity="1"
+                href={ value }
+                clipPath="url(#clip)"
+            /> 
+        </Svg>
+    )
+
+    _textRender =  ( x, y, value, size, i ) => (
+        <Text
+            x={x}
+            y={y - size}
+            fill={this.props.textColor ? this.props.textColor : '#fff'}
+            textAnchor="middle"
+            fontSize={this.fontSize}
+        >
+            {Array.from({ length: value.length }).map((_, j) => {
+                return (
+                    <TSpan
+                        x={x}
+                        dy={this.fontSize}
+                        key={`arc-${i}-slice-${j}`}
+                    >
+
+                        {value.toString().charAt(j)}
+                    </TSpan>
+                );
+            })}
+        </Text>
+    )
 
 
 
@@ -159,7 +213,6 @@ class WheelOfFortune extends Component {
                         <G y={width / 2} x={width / 2}>
                             {this._wheelPaths.map((arc, i) => {
                                 const [x, y] = arc.centroid;
-                                const number = arc.value.toString();
 
                                 return (
                                     <G key={`arc-${i}`}>
@@ -169,27 +222,11 @@ class WheelOfFortune extends Component {
                                             rotation={(i * this.oneTurn) / this.numberOfSegments + this.angleOffset}
                                             origin={`${x}, ${y}`}
                                         >
-
-                                            <Text
-                                                x={x}
-                                                y={y - 70}
-                                                fill={this.props.textColor ? this.props.textColor : '#fff'}
-                                                textAnchor="middle"
-                                                fontSize={this.fontSize}
-                                            >
-                                                {Array.from({ length: number.length }).map((_, j) => {
-                                                    return (
-                                                        <TSpan
-                                                            x={x}
-                                                            dy={this.fontSize}
-                                                            key={`arc-${i}-slice-${j}`}
-                                                        >
-
-                                                            {number.charAt(j)}
-                                                        </TSpan>
-                                                    );
-                                                })}
-                                            </Text>
+                                        {
+                                            typeof(arc.value) === "object" ?
+                                            this._imageRender( x, y, arc.value, 60 ) :
+                                            this._textRender( x, y, arc.value, 60, i )
+                                        }
                                         </G>
                                     </G>
                                 );
