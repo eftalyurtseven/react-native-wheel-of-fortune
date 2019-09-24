@@ -88,7 +88,7 @@ class WheelOfFortune extends Component {
                 .arc()
                 .padAngle(0.01)
                 .outerRadius(width / 2)
-                .innerRadius( this.props.innerRadius );
+                .innerRadius( this.props.innerRadius || 100 );
             return {
                 path: instance(arc),
                 color: colors[ index % colors.length ],
