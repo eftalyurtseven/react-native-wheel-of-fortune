@@ -3,10 +3,14 @@ import {
   View,
   Text,
   StyleSheet,
-  StatusBar
+  StatusBar,
+  Button
 } from "react-native";
 
 import WheelOfFortune from 'react-native-wheel-of-fortune';
+
+const participants = [1, 2, 3, 4, 5]
+const rewards = participants.map(e => ({ uri: `https://i.pravatar.cc/300?$1` }))
 
 class App extends Component {
 
@@ -17,6 +21,7 @@ class App extends Component {
       winnerValue: null,
       winnerIndex: null
     }
+
   }
 
   _renderPlayButton = () => {
@@ -30,21 +35,19 @@ class App extends Component {
       <View style={styles.container}>
         <StatusBar barStyle={'light-content'} />
         <WheelOfFortune
-          rewards={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+          onRef={ref => (this.child = ref)}
+          rewards={rewards}
           knobSize={20}
           borderWidth={3}
           borderColor={"#FFF"}
           winner={3}
+          innerRadius={50}
+          duration={1000}
           backgroundColor={"#c0392b"}
-          //knoobSource={{ uri: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' }}
           getWinner={(value, index) => this.setState({ winnerValue: value, winnerIndex: index })}
-          playButton={() => this._renderPlayButton()}
         />
-        {this.state.winnerValue && (
-          <View style={styles.winner}>
-            <Text style={styles.winnerText}>Winner: {this.state.winnerValue}</Text>
-          </View>
-        )}
+        <Button title="Press me" onPress={() => { this.child._onPress() }} />
+       
       </View>
     );
   }
