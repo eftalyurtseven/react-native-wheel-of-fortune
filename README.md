@@ -48,8 +48,7 @@ innerRadius | `Number` | 100 | Set inner radius size
 
 ## Usage
 ```js
-const participants = [1,2,3,4,5]
-const rewards = participants.map( e => ({ uri: `https://i.pravatar.cc/300?${e}` }) )
+const rewards = [1,2,3,4,5,6,7,8,9,10]
 
 <WheelOfFortune
     onRef={ref => (this.child = ref)} 
@@ -72,6 +71,10 @@ For more information and test go to [/Example](https://github.com/eftalyurtseven
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## Contributors
+[![Joaquin Beceiro](https://avatars0.githubusercontent.com/u/10049759?s=50 "Joaquin Beceiro")](https://github.com/JoaquinBeceiro)
+
 
 
 ## License

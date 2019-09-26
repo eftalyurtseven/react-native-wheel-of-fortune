@@ -11,5 +11,7 @@ after_success:
 cache:
   directories:
     - ~/.npm
+ignore:
+  - Example/*    
 notifications:
   email: true

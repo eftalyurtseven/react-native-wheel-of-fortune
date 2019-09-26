@@ -9,7 +9,7 @@ import {
 
 import WheelOfFortune from 'react-native-wheel-of-fortune';
 
-const participants = [1, 2, 3, 4, 5]
+const participants = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const rewards = participants.map(e => ({ uri: `https://i.pravatar.cc/300?$1` }))
 
 class App extends Component {
@@ -21,7 +21,7 @@ class App extends Component {
       winnerValue: null,
       winnerIndex: null
     }
-
+    this.child = null
   }
 
   _renderPlayButton = () => {
@@ -36,13 +36,12 @@ class App extends Component {
         <StatusBar barStyle={'light-content'} />
         <WheelOfFortune
           onRef={ref => (this.child = ref)}
-          rewards={rewards}
+          rewards={participants}
           knobSize={20}
           borderWidth={3}
           borderColor={"#FFF"}
-          winner={3}
-          innerRadius={50}
-          duration={1000}
+          innerRadius={30}
+          duration={5000}
           backgroundColor={"#c0392b"}
           getWinner={(value, index) => this.setState({ winnerValue: value, winnerIndex: index })}
         />

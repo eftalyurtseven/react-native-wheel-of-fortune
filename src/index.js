@@ -20,6 +20,7 @@ import Svg, {
     ClipPath,
     Defs
 } from 'react-native-svg';
+
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 
@@ -62,7 +63,7 @@ class WheelOfFortune extends Component {
 
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.props.onRef(undefined)
     }
 
@@ -88,10 +89,10 @@ class WheelOfFortune extends Component {
                 .arc()
                 .padAngle(0.01)
                 .outerRadius(width / 2)
-                .innerRadius( this.props.innerRadius || 100 );
+                .innerRadius(this.props.innerRadius || 100);
             return {
                 path: instance(arc),
-                color: colors[ index % colors.length ],
+                color: colors[index % colors.length],
                 value: this.Rewards[index],
                 centroid: instance.centroid(arc)
             };
@@ -117,7 +118,7 @@ class WheelOfFortune extends Component {
             started: true
         })
         Animated.timing(this._angle, {
-            toValue: 365 - ((this.winner) * (this.oneTurn / this.numberOfSegments)) + (360 * (duration/1000)),
+            toValue: 365 - ((this.winner) * (this.oneTurn / this.numberOfSegments)) + (360 * (duration / 1000)),
             duration: duration,
             useNativeDriver: true
         }).start(() => {
@@ -131,35 +132,15 @@ class WheelOfFortune extends Component {
 
     };
 
-    _imageRender = ( x, y, value, size ) => (
-        <Svg height="60" width="60">
-            <Defs>
-                <ClipPath id="clip">
-                <Circle x={x} y={y} r={size/2} />
-                </ClipPath>
-            </Defs>
-            <Image
-                x={x-size/2}
-                y={y-size/2}
-                width={size}
-                height={size}
-                preserveAspectRatio="xMidYMid slice"
-                opacity="1"
-                href={ value }
-                clipPath="url(#clip)"
-            /> 
-        </Svg>
-    )
-
-    _textRender =  ( x, y, value, size, i ) => (
+    _textRender = (x, y, value, size, i) => (
         <Text
             x={x}
-            y={y - size}
+            y={y - 70}
             fill={this.props.textColor ? this.props.textColor : '#fff'}
             textAnchor="middle"
             fontSize={this.fontSize}
         >
-            {Array.from({ length: value.length }).map((_, j) => {
+            {Array.from({ length: number.length }).map((_, j) => {
                 return (
                     <TSpan
                         x={x}
@@ -167,7 +148,7 @@ class WheelOfFortune extends Component {
                         key={`arc-${i}-slice-${j}`}
                     >
 
-                        {value.toString().charAt(j)}
+                        {number.charAt(j)}
                     </TSpan>
                 );
             })}
@@ -213,7 +194,8 @@ class WheelOfFortune extends Component {
                         <G y={width / 2} x={width / 2}>
                             {this._wheelPaths.map((arc, i) => {
                                 const [x, y] = arc.centroid;
-
+                                const number = arc.value.toString();
+                               
                                 return (
                                     <G key={`arc-${i}`}>
 
@@ -222,11 +204,27 @@ class WheelOfFortune extends Component {
                                             rotation={(i * this.oneTurn) / this.numberOfSegments + this.angleOffset}
                                             origin={`${x}, ${y}`}
                                         >
-                                        {
-                                            typeof(arc.value) === "object" ?
-                                            this._imageRender( x, y, arc.value, 60 ) :
-                                            this._textRender( x, y, arc.value, 60, i )
-                                        }
+
+                                            <Text
+                                                x={x}
+                                                y={y - 50}
+                                                fill={this.props.textColor ? this.props.textColor : '#fff'}
+                                                textAnchor="middle"
+                                                fontSize={this.fontSize}
+                                            >
+                                                {Array.from({ length: number.length }).map((_, j) => {
+                                                    return (
+                                                        <TSpan
+                                                            x={x}
+                                                            dy={this.fontSize}
+                                                            key={`arc-${i}-slice-${j}`}
+                                                        >
+
+                                                            {number.charAt(j)}
+                                                        </TSpan>
+                                                    );
+                                                })}
+                                            </Text>
                                         </G>
                                     </G>
                                 );
@@ -275,7 +273,7 @@ class WheelOfFortune extends Component {
                     style={{ transform: [{ translateY: 8 }] }}
                 >
                     <RNImage
-                        source={ this.props.knoobSource ? this.props.knoobSource : require('../assets/images/knoob.png') }
+                        source={this.props.knoobSource ? this.props.knoobSource : require('../assets/images/knoob.png')}
                         style={{ width: knobSize, height: (knobSize * 100) / 57 }}
                     />
                 </Svg>
@@ -313,15 +311,6 @@ class WheelOfFortune extends Component {
                         {this._renderSvgWheel()}
                     </Animated.View>
                 </TouchableOpacity>
-
-                {this._renderTopToPlay()}
-
-                { /** wheelofLuck Image  */}
-                
-                  
-               
-
-               
 
             </View>
         );
