@@ -44,18 +44,25 @@ textColor | `String` | #FFFFFF | Rewards text color
 knobSize | `Number` | 20 | Knoob size
 knoobSource | `Path` | knoob.png | Knoob source
 playButton | `render()` | example | Render method for tap to play button
+innerRadius | `Number` | 100 | Set inner radius size
 
 ## Usage
 ```js
+const participants = [1,2,3,4,5]
+const rewards = participants.map( e => ({ uri: `https://i.pravatar.cc/300?${e}` }) )
+
 <WheelOfFortune
-    rewards={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+    onRef={ref => (this.child = ref)} 
+    rewards={ rewards }
     knobSize={20}
     borderWidth={3}
     borderColor={"#FFF"}
     winner={3}
+    innerRadius={50}
     backgroundColor={"#c0392b"}
     getWinner={(value, index) => this.setState({ winnerValue: value, winnerIndex: index })}
-/>        
+/>
+<Button title="Press me" onPress={ () => { this.child._onPress() } } />
 ```
 For more information and test go to [/Example](https://github.com/eftalyurtseven/react-native-wheel-of-fortune/tree/master/Example) folder.
 
