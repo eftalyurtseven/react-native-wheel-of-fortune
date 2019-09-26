@@ -12,6 +12,6 @@ cache:
   directories:
     - ~/.npm
 ignore:
-  - Example/*    
+  - Example/*
 notifications:
   email: true
