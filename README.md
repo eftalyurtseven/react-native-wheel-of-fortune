@@ -65,7 +65,8 @@ const rewards = [1,2,3,4,5,6,7,8,9,10]
 ```
 For more information and test go to [/Example](https://github.com/eftalyurtseven/react-native-wheel-of-fortune/tree/master/Example) folder.
 
-
+## TODO
+- Reset Wheel Functions 
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
