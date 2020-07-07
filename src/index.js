@@ -293,7 +293,7 @@ class WheelOfFortune extends Component {
                 return (
                     <View style={styles.modal}>
                         <TouchableOpacity onPress={() => this._onPress()}>
-                            <RNText style={styles.startText}>TAPTOPLAY</RNText>
+                            <RNText style={styles.startText}>{this.props.startText ? this.props.startText : "TAPTOPLAY"}</RNText>
                         </TouchableOpacity>
                     </View>
                 );
