@@ -15,10 +15,6 @@ import Svg, {
     Text,
     TSpan,
     Path,
-    Image,
-    Circle,
-    ClipPath,
-    Defs
 } from 'react-native-svg';
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
