@@ -43,6 +43,7 @@ class App extends Component {
           innerRadius={30}
           duration={5000}
           backgroundColor={"#c0392b"}
+          textAngle={"vertical"}
           getWinner={(value, index) => this.setState({ winnerValue: value, winnerIndex: index })}
         />
         <Button title="Press me" onPress={() => { this.child._onPress() }} />
