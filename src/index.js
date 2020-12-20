@@ -128,25 +128,35 @@ class WheelOfFortune extends Component {
 
     };
 
-    _textRender = (x, y, value, size, i) => (
+    _textRender = (x, y, number, i) => (
         <Text
-            x={x}
-            y={y - 70}
+            x={x - number.length * 5}
+            y={y - 80}
             fill={this.props.textColor ? this.props.textColor : '#fff'}
             textAnchor="middle"
             fontSize={this.fontSize}
         >
             {Array.from({ length: number.length }).map((_, j) => {
-                return (
-                    <TSpan
-                        x={x}
-                        dy={this.fontSize}
-                        key={`arc-${i}-slice-${j}`}
-                    >
-
+                // Render reward text vertically
+                if (this.props.textAngle === "vertical") {
+                    return (
+                    <TSpan x={x} dy={this.fontSize} key={`arc-${i}-slice-${j}`}>
                         {number.charAt(j)}
                     </TSpan>
-                );
+                    );
+                }
+                // Render reward text horizontally
+                else {
+                    return (
+                    <TSpan
+                        y={y - 40}
+                        dx={this.fontSize * 0.07}
+                        key={`arc-${i}-slice-${j}`}
+                    >
+                        {number.charAt(j)}
+                    </TSpan>
+                    );
+                }
             })}
         </Text>
     )
@@ -200,27 +210,7 @@ class WheelOfFortune extends Component {
                                             rotation={(i * this.oneTurn) / this.numberOfSegments + this.angleOffset}
                                             origin={`${x}, ${y}`}
                                         >
-
-                                            <Text
-                                                x={x}
-                                                y={y - 50}
-                                                fill={this.props.textColor ? this.props.textColor : '#fff'}
-                                                textAnchor="middle"
-                                                fontSize={this.fontSize}
-                                            >
-                                                {Array.from({ length: number.length }).map((_, j) => {
-                                                    return (
-                                                        <TSpan
-                                                            x={x}
-                                                            dy={this.fontSize}
-                                                            key={`arc-${i}-slice-${j}`}
-                                                        >
-
-                                                            {number.charAt(j)}
-                                                        </TSpan>
-                                                    );
-                                                })}
-                                            </Text>
+                                            {this._textRender(x, y, number, i)}
                                         </G>
                                     </G>
                                 );
@@ -307,7 +297,7 @@ class WheelOfFortune extends Component {
                         {this._renderSvgWheel()}
                     </Animated.View>
                 </TouchableOpacity>
-
+                {this._renderTopToPlay()}
             </View>
         );
     }
