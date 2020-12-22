@@ -45,6 +45,8 @@ knobSize | `Number` | 20 | Knoob size
 knoobSource | `Path` | knoob.png | Knoob source
 playButton | `render()` | example | Render method for tap to play button
 innerRadius | `Number` | 100 | Set inner radius size
+innerRadius | `Number` | 100 | Set inner radius size
+textAngle | `String` | horizontal | Set angle of reward text
 
 ## Usage
 ```js
@@ -59,6 +61,7 @@ const rewards = [1,2,3,4,5,6,7,8,9,10]
     winner={3}
     innerRadius={50}
     backgroundColor={"#c0392b"}
+    textAngle={"vertical"}
     getWinner={(value, index) => this.setState({ winnerValue: value, winnerIndex: index })}
 />
 <Button title="Press me" onPress={ () => { this.child._onPress() } } />
