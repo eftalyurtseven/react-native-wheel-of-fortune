@@ -78,6 +78,7 @@ Please make sure to update tests as appropriate.
 
 ## Contributors
 [![Joaquin Beceiro](https://avatars0.githubusercontent.com/u/10049759?s=50 "Joaquin Beceiro")](https://github.com/JoaquinBeceiro)
+[![Ruben](https://avatars0.githubusercontent.com/u/50332377?s=460&v=4 "Ruben")](https://github.com/Rubinjo)
 
 
 
