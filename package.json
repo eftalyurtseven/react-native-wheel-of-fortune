@@ -1,6 +1,6 @@
 {
   "name": "react-native-wheel-of-fortune",
-  "version": "0.0.8",
+  "version": "1.5.4",
   "description": "React Native Wheel Of Fortune Component.",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,10 @@
     "react native wheel of luck",
     "rn wheel of luck"
   ],
+  "dependencies": {
+    "d3-shape": "^1.3.5",
+    "react-native-svg": "^9.9.5"
+  },
   "author": "Eftal Yurtseven",
   "license": "MIT",
   "bugs": {

@@ -5,9 +5,7 @@
 
 Wheel of fortune component for React Native
 
-![React Native Wheel Of Fortune](https://github.com/eftalyurtseven/react-native-wheel-of-fortune/raw/master/assets/images/RNWheelOfFortune.gif "React Native Wheel Of Fortune")
-
-![React Native Wheel Of Fortune](https://github.com/eftalyurtseven/react-native-wheel-of-fortune/raw/master/assets/images/demo.png "React Native Wheel Of Fortune")
+![React Native Wheel Of Fortune](https://github.com/eftalyurtseven/react-native-wheel-of-fortune/raw/master/assets/images/wof.gif "React Native Wheel Of Fortune")
 
 
 ## Installation
@@ -50,19 +48,34 @@ textAngle | `String` | horizontal | Set angle of reward text
 
 ## Usage
 ```js
-const rewards = [1,2,3,4,5,6,7,8,9,10]
-
+const participants = [
+  '%10',
+  '%20',
+  '%30',
+  '%40',
+  '%50',
+  '%60',
+  '%70',
+  '%90',
+  'FREE',
+];
+const wheelOptions = {
+      rewards: participants,
+      knobSize: 50,
+      borderWidth: 5,
+      borderColor: '#000',
+      innerRadius: 50,
+      duration: 4000,
+      backgroundColor: 'transparent',
+      textAngle: 'horizontal',
+      knobSource: require('./assets/images/knoob.png'),
+      getWinner: (value, index) => {
+        this.setState({winnerValue: value, winnerIndex: index});
+      },
+      onRef: ref => (this.child = ref),
+    };
 <WheelOfFortune
-    onRef={ref => (this.child = ref)} 
-    rewards={ rewards }
-    knobSize={20}
-    borderWidth={3}
-    borderColor={"#FFF"}
-    winner={3}
-    innerRadius={50}
-    backgroundColor={"#c0392b"}
-    textAngle={"vertical"}
-    getWinner={(value, index) => this.setState({ winnerValue: value, winnerIndex: index })}
+    wheelOptions={wheelOptions}
 />
 <Button title="Press me" onPress={ () => { this.child._onPress() } } />
 ```
@@ -78,7 +91,7 @@ Please make sure to update tests as appropriate.
 
 ## Contributors
 [![Joaquin Beceiro](https://avatars0.githubusercontent.com/u/10049759?s=50 "Joaquin Beceiro")](https://github.com/JoaquinBeceiro)
-[![Ruben](https://avatars0.githubusercontent.com/u/50332377?s=50&v=4 "Ruben")](https://github.com/Rubinjo)
+[<img src="https://avatars0.githubusercontent.com/u/50332377" width="50"/>](https://github.com/Rubinjo)
 
 
 

@@ -1,53 +1,91 @@
-import React, { Component } from "react";
+import React, {Component} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   StatusBar,
-  Button
-} from "react-native";
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 
 import WheelOfFortune from 'react-native-wheel-of-fortune';
 
-const participants = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const rewards = participants.map(e => ({ uri: `https://i.pravatar.cc/300?$1` }))
-
+const participants = [
+  '%10',
+  '%20',
+  '%30',
+  '%40',
+  '%50',
+  '%60',
+  '%70',
+  '%90',
+  'FREE',
+];
 class App extends Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
       winnerValue: null,
-      winnerIndex: null
-    }
-    this.child = null
+      winnerIndex: null,
+      started: false,
+    };
+    this.child = null;
   }
 
-  _renderPlayButton = () => {
-    return (
-      <Text style={styles.tapToStart}>TAP TO PLAY</Text>
-    );
-  }
+  buttonPress = () => {
+    this.setState({
+      started: true,
+    });
+    this.child._onPress();
+  };
 
   render() {
+    const wheelOptions = {
+      rewards: participants,
+      knobSize: 30,
+      borderWidth: 5,
+      borderColor: '#fff',
+      innerRadius: 30,
+      duration: 6000,
+      backgroundColor: 'transparent',
+      textAngle: 'horizontal',
+      knobSource: require('./knob.png'),
+      onRef: ref => (this.child = ref),
+    };
     return (
       <View style={styles.container}>
         <StatusBar barStyle={'light-content'} />
         <WheelOfFortune
-          onRef={ref => (this.child = ref)}
-          rewards={participants}
-          knobSize={20}
-          borderWidth={3}
-          borderColor={"#FFF"}
-          innerRadius={30}
-          duration={5000}
-          backgroundColor={"#c0392b"}
-          textAngle={"vertical"}
-          getWinner={(value, index) => this.setState({ winnerValue: value, winnerIndex: index })}
+          options={wheelOptions}
+          getWinner={(value, index) => {
+            this.setState({winnerValue: value, winnerIndex: index});
+          }}
         />
-        <Button title="Press me" onPress={() => { this.child._onPress() }} />
-       
+        {!this.state.started && (
+          <View style={styles.startButtonView}>
+            <TouchableOpacity
+              onPress={() => this.buttonPress()}
+              style={styles.startButton}>
+              <Text style={styles.startButtonText}>Spin to win!</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {this.state.winnerIndex != null && (
+          <View style={styles.winnerView}>
+            <Text style={styles.winnerText}>
+              You win {participants[this.state.winnerIndex]}
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({winnerIndex: null});
+                this.child._tryAgain();
+              }}
+              style={styles.tryAgainButton}>
+              <Text style={styles.tryAgainText}>TRY AGAIN</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     );
   }
@@ -61,22 +99,37 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#E74C3C'
   },
-  winner: {
-    width: '100%',
+  startButtonView: {
     position: 'absolute',
-    padding: 10,
-    backgroundColor: '#fff',
-    bottom: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
   },
-  winnerText: {
-    fontSize: 26,
-    color: '#666'
+  startButton: {
+    backgroundColor: 'rgba(0,0,0,.5)',
+    marginTop: 50,
+    padding: 5,
   },
-  tapToStart: {
+  startButtonText: {
     fontSize: 50,
     color: '#fff',
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
+  winnerView: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tryAgainButton: {
+    padding: 10,
+  },
+  winnerText: {
+    fontSize: 30,
+  },
+  tryAgainButton: {
+    padding: 5,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  tryAgainText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
 });

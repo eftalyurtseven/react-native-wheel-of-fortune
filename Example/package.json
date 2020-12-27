@@ -14,7 +14,7 @@
     "react": "16.9.0",
     "react-native": "0.61.1",
     "react-native-svg": "^9.9.5",
-    "react-native-wheel-of-fortune": "0.0.8"
+    "react-native-wheel-of-fortune": "^1.5.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
