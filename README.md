@@ -75,7 +75,7 @@ const wheelOptions = {
       onRef: ref => (this.child = ref),
     };
 <WheelOfFortune
-    wheelOptions={wheelOptions}
+    options={wheelOptions}
 />
 <Button title="Press me" onPress={ () => { this.child._onPress() } } />
 ```
