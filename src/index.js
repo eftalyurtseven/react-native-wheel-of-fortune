@@ -340,7 +340,7 @@ class WheelOfFortune extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity
+        <View
           style={{
             position: 'absolute',
             width: width,
@@ -351,7 +351,7 @@ class WheelOfFortune extends Component {
           <Animated.View style={[styles.content, {padding: 10}]}>
             {this._renderSvgWheel()}
           </Animated.View>
-        </TouchableOpacity>
+        </View>
         {this.props.options.playButton ? this._renderTopToPlay() : null}
       </View>
     );
