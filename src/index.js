@@ -42,9 +42,7 @@ class WheelOfFortune extends Component {
     this.oneTurn = 360;
     this.angleBySegment = this.oneTurn / this.numberOfSegments;
     this.angleOffset = this.angleBySegment / 2;
-    this.winner = this.props.options.winner
-      ? this.props.options.winner
-      : Math.floor(Math.random() * this.numberOfSegments);
+    this.winner = this.props.options.winner ?? Math.floor(Math.random() * this.numberOfSegments);
 
     this._wheelPaths = this.makeWheel();
     this._angle = new Animated.Value(0);
@@ -157,7 +155,14 @@ class WheelOfFortune extends Component {
         finished: true,
         winner: this._wheelPaths[winnerIndex].value,
       });
-      this.props.getWinner(this._wheelPaths[winnerIndex].value, winnerIndex);
+      if (this.props.getWinner) {
+        this.props.getWinner(this._wheelPaths[winnerIndex].value, winnerIndex);
+      } else {
+        this.props.options?.getWinner?.(
+          this._wheelPaths[winnerIndex].value,
+          winnerIndex
+          );
+      }
     });
   };
 
@@ -335,7 +340,7 @@ class WheelOfFortune extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity
+        <View
           style={{
             position: 'absolute',
             width: width,
@@ -346,7 +351,7 @@ class WheelOfFortune extends Component {
           <Animated.View style={[styles.content, {padding: 10}]}>
             {this._renderSvgWheel()}
           </Animated.View>
-        </TouchableOpacity>
+        </View>
         {this.props.options.playButton ? this._renderTopToPlay() : null}
       </View>
     );
